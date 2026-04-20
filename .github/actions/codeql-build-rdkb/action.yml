@@ -1,0 +1,21 @@
+name: CodeQL C/C++ Build
+description: Orchestrates repo-provided native build for CodeQL
+
+runs:
+  using: composite
+  steps:
+    - name: Mark repo safe
+      shell: bash
+      run: |
+        git config --global --add safe.directory '*'
+
+    - name: Run native build from application repo
+      shell: bash
+      run: |
+        chmod +x build_tools_workflows/cov_docker_script/*.sh
+
+        build_tools_workflows/cov_docker_script/setup_dependencies.sh \
+          build_tools_workflows/cov_docker_script/component_config.json
+
+        build_tools_workflows/cov_docker_script/build_native.sh \
+          build_tools_workflows/cov_docker_script/component_config.json "$(pwd)"

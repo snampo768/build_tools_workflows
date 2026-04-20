@@ -1,0 +1,41 @@
+name: CodeQL Common Framework
+
+on:
+  workflow_call:
+    inputs:
+      repo_type:
+        required: true
+        type: string
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/rdkcentral/docker-rdk-ci:latest
+
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: c-cpp
+            build-mode: manual
+
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+            build-mode: manual
+
+      - name: Native build component
+        uses: build_tools_workflows/.github/actions/codeql-build-${{inputs.repo_type}}@main
+      
+      - name: Analyze CodeQL
+        uses: github/codeql-action/analyze@v4

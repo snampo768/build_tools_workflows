@@ -9,6 +9,9 @@ runs:
       run: |
         git config --global --add safe.directory '*'
 
+        # Pull the latest changes for the native build system
+        git submodule update --init --recursive --remote
+
     - name: Run native build from application repo
       shell: bash
       run: |

@@ -26,16 +26,19 @@ jobs:
             build-mode: manual
 
     steps:
-      - name: Checkout application repository
-        uses: actions/checkout@v4
+      - name: Echo repo_type
+        run: echo "repo_type is ${{ inputs.repo_type }}"
+        
+      # - name: Checkout application repository
+      #   uses: actions/checkout@v4
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-            build-mode: manual
+      # - name: Initialize CodeQL
+      #   uses: github/codeql-action/init@v4
+      #   with:
+      #       build-mode: manual
 
-      - name: Native build component
-        uses: snampo768/build_tools_workflows/.github/actions/codeql-build-${{ inputs.repo_type }}@main
+      # - name: Native build component
+      #   uses: snampo768/build_tools_workflows/.github/actions/codeql-build-${{ inputs.repo_type }}@main
       
-      - name: Analyze CodeQL
-        uses: github/codeql-action/analyze@v4
+      # - name: Analyze CodeQL
+      #   uses: github/codeql-action/analyze@v4

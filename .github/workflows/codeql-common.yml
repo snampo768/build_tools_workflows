@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/rdkcentral/docker-rdk-ci:latest
-    
-    env:
-      BUILD_ACTION: codeql-build-${{ inputs.repo_type }}
       
     strategy:
       fail-fast: false
@@ -25,8 +22,8 @@ jobs:
 
     steps:
 
-      - name: Echo Build Action
-        run: echo "Build Action repo_type is ${{ env.BUILD_ACTION }}"
+      - name: Echo repo type
+        run: echo " repo_type is ${{ inputs.repo_type }}"
         
       - name: Checkout application repository
         uses: actions/checkout@v4
@@ -36,8 +33,9 @@ jobs:
         with:
             build-mode: manual
 
-      - name: Native build component
-        uses: snampo768/build_tools_workflows/.github/actions/${{ env.BUILD_ACTION }}@main
+      - name: Native build component (rdkb)
+        if: inputs.repo_type == 'rdkb'
+        uses: snampo768/build_tools_workflows/.github/actions/codeql-build-rdkb@main
       
       - name: Analyze CodeQL
         uses: github/codeql-action/analyze@v4

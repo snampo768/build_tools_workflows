@@ -31,7 +31,8 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
-            build-mode: manual
+            languages: ${{ matrix.language }}
+            build-mode: ${{ matrix.build-mode }}
 
       - name: Native build component (rdkb)
         if: inputs.repo_type == 'rdkb'

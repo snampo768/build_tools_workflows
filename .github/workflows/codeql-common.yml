@@ -13,11 +13,6 @@ jobs:
     container:
       image: ghcr.io/rdkcentral/docker-rdk-ci:latest
 
-    permissions:
-      security-events: write
-      contents: read
-      actions: read
-
     strategy:
       fail-fast: false
       matrix:

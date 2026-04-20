@@ -15,10 +15,11 @@ runs:
     - name: Run native build from application repo
       shell: bash
       run: |
-        chmod +x build_tools_workflows/cov_docker_script/*.sh
 
-        build_tools_workflows/cov_docker_script/setup_dependencies.sh \
-          build_tools_workflows/cov_docker_script/component_config.json
+        # Build and install dependencies
+        chmod +x build_tools_workflows/cov_docker_script/setup_dependencies.sh
+        ./build_tools_workflows/cov_docker_script/setup_dependencies.sh ./cov_docker_script/component_config.json
 
-        build_tools_workflows/cov_docker_script/build_native.sh \
-          build_tools_workflows/cov_docker_script/component_config.json "$(pwd)"
+        # Build component
+        chmod +x build_tools_workflows/cov_docker_script/build_native.sh
+        ./build_tools_workflows/cov_docker_script/build_native.sh ./cov_docker_script/component_config.json "$(pwd)"

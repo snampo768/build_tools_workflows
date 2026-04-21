@@ -1,0 +1,23 @@
+name: CodeQL C/C++ shared Build
+description: Orchestrates build for different build types
+
+inputs:
+  repo_type:
+    required: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: Run build script
+      shell: bash
+      run: |
+        set -euo pipefail
+        SCRIPT="${{ github.action_path }}/build-${{ inputs.repo_type }}.sh"
+
+        if [[ ! -f "$SCRIPT" ]]; then
+          echo "ERROR: Build script not found: $SCRIPT"
+          exit 1
+        fi
+        chmod +x "$SCRIPT"
+        "$SCRIPT"

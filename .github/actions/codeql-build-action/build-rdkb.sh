@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+git config --global --add safe.directory '*'
+
+# Pull the latest changes for the native build system
+git submodule update --init --recursive --remote
+        
+# Build and install dependencies
+chmod +x build_tools_workflows/cov_docker_script/setup_dependencies.sh
+./build_tools_workflows/cov_docker_script/setup_dependencies.sh ./cov_docker_script/component_config.json
+
+# Build component
+chmod +x build_tools_workflows/cov_docker_script/build_native.sh
+./build_tools_workflows/cov_docker_script/build_native.sh ./cov_docker_script/component_config.json "$(pwd)"

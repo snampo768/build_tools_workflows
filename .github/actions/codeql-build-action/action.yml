@@ -14,9 +14,6 @@ runs:
       run: |
         set -euo pipefail
         SCRIPT="$GITHUB_ACTION_PATH/build-${{ inputs.repo_type }}.sh"
-        
-        echo "Action path: $GITHUB_ACTION_PATH"
-        ls -la "$GITHUB_ACTION_PATH"
 
         if [ ! -f "$SCRIPT" ]; then
           echo "ERROR: Build script not found: $SCRIPT"

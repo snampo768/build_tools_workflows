@@ -36,6 +36,8 @@ jobs:
 
       - name: Native build component
         uses: snampo768/build_tools_workflows/.github/actions/codeql-build-action@main
+        with:
+          repo_type: ${{ inputs.repo_type }}
       
       - name: Analyze CodeQL
         uses: github/codeql-action/analyze@v4

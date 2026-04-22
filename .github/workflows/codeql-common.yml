@@ -6,12 +6,15 @@ on:
       repo_type:
         required: true
         type: string
+      container_image:
+        required: true
+        type: string
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/rdkcentral/docker-rdk-ci:latest
+      image: ${{ inputs.container_image }}
       
     strategy:
       fail-fast: false
@@ -21,9 +24,9 @@ jobs:
             build-mode: manual
 
     steps:
-
-      - name: Echo repo type
-        run: echo " repo_type is ${{ inputs.repo_type }}"
+      - run: echo "Running in ${{ inputs.container_image }}"
+      
+      - run: echo " Repository type is ${{ inputs.repo_type }}"
         
       - name: Checkout application repository
         uses: actions/checkout@v4

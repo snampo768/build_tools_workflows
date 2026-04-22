@@ -34,9 +34,8 @@ jobs:
             languages: ${{ matrix.language }}
             build-mode: ${{ matrix.build-mode }}
 
-      - name: Native build component (rdkb)
-        if: inputs.repo_type == 'rdkb'
-        uses: snampo768/build_tools_workflows/.github/actions/codeql-build-rdkb@main
+      - name: Native build component
+        uses: snampo768/build_tools_workflows/.github/actions/codeql-build-action@main
       
       - name: Analyze CodeQL
         uses: github/codeql-action/analyze@v4

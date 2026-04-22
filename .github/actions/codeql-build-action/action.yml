@@ -13,11 +13,15 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        SCRIPT="${{ github.action_path }}/build-${{ inputs.repo_type }}.sh"
+        SCRIPT="$GITHUB_ACTION_PATH/build-${{ inputs.repo_type }}.sh"
+        
+        echo "Action path: $GITHUB_ACTION_PATH"
+        ls -la "$GITHUB_ACTION_PATH"
 
-        if [[ ! -f "$SCRIPT" ]]; then
+        if [ ! -f "$SCRIPT" ]; then
           echo "ERROR: Build script not found: $SCRIPT"
           exit 1
         fi
+
         chmod +x "$SCRIPT"
-        "$SCRIPT"
+        bash "$SCRIPT"
